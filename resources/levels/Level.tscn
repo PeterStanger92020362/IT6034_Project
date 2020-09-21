@@ -1,0 +1,314 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://resources/planets/planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/levels/SpaceBackGround.jpg" type="Texture" id=2]
+[ext_resource path="res://resources/turret/Turret.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/planets/moon.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/levels/Level.gd" type="Script" id=5]
+[ext_resource path="res://resources/asteroid/AsteroidSpawnArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://resources/sfx/buttonClicked.ogg" type="AudioStream" id=7]
+[ext_resource path="res://resources/menu/hudComponents.png" type="Texture" id=8]
+[ext_resource path="res://resources/fonts/font.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://resources/sfx/alert.ogg" type="AudioStream" id=10]
+[ext_resource path="res://resources/levels/WelcomePopUp.gd" type="Script" id=11]
+[ext_resource path="res://resources/music/level_song.wav" type="AudioStream" id=12]
+[ext_resource path="res://resources/levels/Clock.gd" type="Script" id=13]
+[ext_resource path="res://resources/sfx/youwin.ogg" type="AudioStream" id=14]
+[ext_resource path="res://resources/sfx/youlose.ogg" type="AudioStream" id=15]
+[ext_resource path="res://resources/levels/OutcomeDialogBox.gd" type="Script" id=16]
+[ext_resource path="res://resources/menu/menuBackground.jpg" type="Texture" id=17]
+[ext_resource path="res://resources/levels/AsteroidCounter.gd" type="Script" id=18]
+[ext_resource path="res://resources/asteroid/a10000.png" type="Texture" id=19]
+[ext_resource path="res://resources/menu/youWinBackground.jpg" type="Texture" id=20]
+
+[sub_resource type="DynamicFont" id=1]
+size = 50
+use_filter = true
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 36
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 60
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 48
+use_filter = true
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 48
+font_data = ExtResource( 9 )
+
+[node name="Level" type="Node2D"]
+pause_mode = 1
+script = ExtResource( 5 )
+
+[node name="Background" type="Sprite" parent="."]
+position = Vector2( 958.744, 529.482 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Planet" parent="." instance=ExtResource( 1 )]
+position = Vector2( 960, 1080 )
+collision_mask = 2
+
+[node name="Turret" parent="." instance=ExtResource( 3 )]
+position = Vector2( 959.578, 1031.39 )
+rotation = 4.71239
+
+[node name="AsteroidSpawnArea" parent="." instance=ExtResource( 6 )]
+position = Vector2( -2.73749, 156.216 )
+
+[node name="KeyPressedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+
+[node name="LevelBGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = 2.0
+
+[node name="Moon" parent="." instance=ExtResource( 4 )]
+position = Vector2( 448.532, 435.933 )
+
+[node name="Clock" type="Sprite" parent="."]
+position = Vector2( 163.088, 994.425 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+region_enabled = true
+region_rect = Rect2( 155, 225, 445, 160 )
+region_filter_clip = true
+script = ExtResource( 13 )
+
+[node name="Timer" type="Timer" parent="Clock"]
+wait_time = 60.0
+
+[node name="TimeLabel" type="Label" parent="Clock"]
+margin_left = -60.1357
+margin_top = -23.8378
+margin_right = 164.864
+margin_bottom = 27.1622
+custom_fonts/font = SubResource( 1 )
+text = "??:??"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AsteroidCounter" type="Sprite" parent="."]
+position = Vector2( 1756.48, 995.238 )
+scale = Vector2( 0.5, 0.5 )
+z_index = 1
+texture = ExtResource( 8 )
+region_enabled = true
+region_rect = Rect2( 155, 68, 445, 155 )
+region_filter_clip = true
+script = ExtResource( 18 )
+
+[node name="AsteroidCount" type="Label" parent="AsteroidCounter"]
+margin_left = -79.2854
+margin_top = -19.8214
+margin_right = 181.715
+margin_bottom = 29.1786
+custom_fonts/font = SubResource( 2 )
+text = "??? Left"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AsteroidPic" type="Sprite" parent="AsteroidCounter"]
+position = Vector2( -155.739, 0.943878 )
+texture = ExtResource( 19 )
+
+[node name="WelcomePopUp" type="Control" parent="."]
+pause_mode = 2
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = -1.41418
+margin_right = 1920.0
+margin_bottom = 1078.59
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AlertSound" type="AudioStreamPlayer" parent="WelcomePopUp"]
+stream = ExtResource( 10 )
+
+[node name="Sprite" type="Sprite" parent="WelcomePopUp"]
+position = Vector2( 630, 318.684 )
+z_index = 1
+texture = ExtResource( 8 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 210, 645, 755, 490 )
+region_filter_clip = true
+
+[node name="PopUpTitle" type="Label" parent="WelcomePopUp/Sprite"]
+margin_left = 49.8903
+margin_top = 24.9452
+margin_right = 709.89
+margin_bottom = 61.9452
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0.670588, 1, 1 )
+text = "alert #2822138"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BackStory" type="Label" parent="WelcomePopUp/Sprite"]
+visible = false
+margin_left = 48.8903
+margin_top = 100.945
+margin_right = 708.89
+margin_bottom = 396.945
+rect_pivot_offset = Vector2( 50, 50 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0, 0.670588, 1, 1 )
+text = "an unknown alien ship is using advanced technology to fling asteroids at planet earth.
+
+luckily the united earth defense force invested in the mk.vii surface cannon.
+
+research found that 'gamers' were the only people skilled enough to operate the weapon.
+
+you have been chosen to defend the planet."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HowToPlay" type="Label" parent="WelcomePopUp/Sprite"]
+visible = false
+margin_left = 47.8903
+margin_top = 87.9452
+margin_right = 707.89
+margin_bottom = 429.945
+rect_pivot_offset = Vector2( 50, 50 )
+custom_fonts/font = SubResource( 4 )
+text = "use the mouse to aim and mouse1 to shoot.
+
+
+Humanity wins if you can survive 60 seconds  until the planetary shields can be activated or if you destroy all the incoming asteroids.
+
+It is game over if any of the incoming asteroids impact with planet earth.
+
+
+good luck soldier!
+"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelNumber" type="Label" parent="WelcomePopUp/Sprite"]
+pause_mode = 2
+margin_left = 214.909
+margin_top = 206.9
+margin_right = 516.909
+margin_bottom = 267.9
+custom_fonts/font = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OutcomeDialogBox" type="Control" parent="."]
+pause_mode = 2
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="OutcomeDialogBox"]
+pause_mode = 2
+position = Vector2( 960, 575 )
+z_index = 2
+texture = ExtResource( 8 )
+region_enabled = true
+region_rect = Rect2( 210, 645, 755, 490 )
+region_filter_clip = true
+
+[node name="YouWin" type="Label" parent="OutcomeDialogBox/Sprite"]
+margin_left = -504.026
+margin_top = -90.9316
+margin_right = 486.974
+margin_bottom = 134.068
+custom_fonts/font = SubResource( 6 )
+text = "Congratulations
+
+You Survived  this 
+round"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouLose" type="Label" parent="OutcomeDialogBox/Sprite"]
+margin_left = -413.191
+margin_top = -103.827
+margin_right = 418.809
+margin_bottom = 101.173
+custom_fonts/font = SubResource( 7 )
+text = "you lose.
+
+extinction level
+event detected"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="YouLoseSound" type="AudioStreamPlayer" parent="OutcomeDialogBox"]
+pause_mode = 2
+stream = ExtResource( 15 )
+
+[node name="YouWinSound" type="AudioStreamPlayer" parent="OutcomeDialogBox"]
+pause_mode = 2
+stream = ExtResource( 14 )
+
+[node name="YouLoseBackGround" type="Sprite" parent="OutcomeDialogBox"]
+scale = Vector2( 0.75, 0.7 )
+z_index = 1
+texture = ExtResource( 17 )
+centered = false
+
+[node name="YouWinBackGround" type="Sprite" parent="OutcomeDialogBox"]
+scale = Vector2( 1, 0.9 )
+z_index = 1
+texture = ExtResource( 20 )
+centered = false
+
+[node name="PowerUpLabel" type="Label" parent="."]
+margin_right = 80.0
+margin_bottom = 55.0
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PowerUpTimer" type="Timer" parent="PowerUpLabel"]
+wait_time = 5.0
+
+[node name="PowerUpTimer" type="Timer" parent="."]
+wait_time = 5.0
+[connection signal="levelStarted" from="." to="Clock" method="_on_Level_levelStarted"]
+[connection signal="finished" from="KeyPressedSound" to="." method="_on_KeyPressedSound_finished"]
+[connection signal="timerStopped" from="Clock" to="." method="_on_Clock_timerStopped"]
+[connection signal="popUpDismissed" from="WelcomePopUp" to="." method="_on_WelcomePopUp_popUpDismissed"]
+[connection signal="timeout" from="PowerUpTimer" to="." method="_on_PowerUpTimer_timeout"]

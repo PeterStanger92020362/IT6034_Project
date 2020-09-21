@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 100, 500 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1150, 100 )
+
+[node name="AsteroidSpawnArea" type="Area2D"]
+monitoring = false
+monitorable = false
+
+[node name="SpawnLeft" type="CollisionShape2D" parent="."]
+position = Vector2( -97.8578, 293.525 )
+shape = SubResource( 1 )
+
+[node name="SpawnRight" type="CollisionShape2D" parent="."]
+position = Vector2( 2010.54, 290.696 )
+shape = SubResource( 1 )
+
+[node name="SpawnTop" type="CollisionShape2D" parent="."]
+position = Vector2( 956, -108 )
+shape = SubResource( 2 )

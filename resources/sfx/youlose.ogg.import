@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/youlose.ogg-ce30470eaecdfb2d7bde1c26349cd76f.oggstr"
+
+[deps]
+
+source_file="res://resources/sfx/youlose.ogg"
+dest_files=[ "res://.import/youlose.ogg-ce30470eaecdfb2d7bde1c26349cd76f.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
